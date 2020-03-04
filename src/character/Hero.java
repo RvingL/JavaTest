@@ -22,6 +22,17 @@ public class Hero implements Serializable, Comparable<Hero> {
         this.damage = damage;
     }
 
+    public synchronized void recover() {
+        hp += 1;
+    }
+
+    public void hurt() {
+        synchronized (this) {
+            hp -= 1;
+        }
+
+    }
+
     public Boolean isDead() {
         return hp <= 0;
     }
