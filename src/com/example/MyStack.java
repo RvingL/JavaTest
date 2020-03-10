@@ -9,7 +9,7 @@ public class MyStack implements Stack {
     private static LinkedList<Hero> linkedList=new LinkedList<>();
 
     @Override
-    public void push(Hero hero) {
+    public synchronized void push(Hero hero) {
         linkedList.addLast(hero);
     }
 

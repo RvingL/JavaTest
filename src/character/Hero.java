@@ -24,13 +24,20 @@ public class Hero implements Serializable, Comparable<Hero> {
 
     public synchronized void recover() {
         hp += 1;
+        System.out.printf("%s回了一点血，剩余%.0f点血%n", name, hp);
+        this.notify();
     }
 
-    public void hurt() {
-        synchronized (this) {
-            hp -= 1;
+    public synchronized void hurt() {
+        if (hp == 1) {
+            try {
+                this.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-
+        hp -= 1;
+        System.out.printf("%s扣了一点血，剩余%.0f点血%n", name, hp);
     }
 
     public Boolean isDead() {
@@ -63,4 +70,5 @@ public class Hero implements Serializable, Comparable<Hero> {
             return -1;
         }
     }
+
 }
